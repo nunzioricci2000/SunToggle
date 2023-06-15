@@ -8,11 +8,15 @@ Just before I finally decide to go to sleep I find this silly reel: https://www.
 
 Needless to say, at the sight of such beauty I could not resist and immediately had to try my hand at this unexpected challenge.
 
-Result? 1 hour of scheming on Figma, 1 1/2 hours of pure Xcode-style fun, and circadian cycle blown to hell.
+The result? 1 hour of scheming on Figma, 1 1/2 hours of pure Xcode-style fun, and the circadian cycle blown to hell.
 
 ## Installation guide
 
-
+1. Open your Xcode project
+2. Click _File -> Add Packages..._
+3. In the text field write `https://github.com/nunzioricci2000/SunToggle.git`
+4. Select _SunToggle_
+5. Click _Add Products_
 
 ## How to use it?
 
