@@ -19,27 +19,21 @@ Result? 1 hour of scheming on Figma, 1 1/2 hours of pure Xcode-style fun, and ci
 Downloading the repo you will find a sample project but, in case you are too lazy, here is the step-by-step guide:
 
 ### 1. Import the library
-    
-    ```swift
+
         import SunToggle
-    ```
     
 ### 2. Create a toggle
     
-    ```swift
         var body: some View {
             Toggle("This is a Sun", isOn: $isOn)
         }
-    ```
     
 ### 3. Set `.sun` as toggle style
     
-    ```swift
         var body: some View {
             Toggle("This is a Sun", isOn: $isOn)
                                 .toggleStyle(.sun)
         }
-    ```
 
 ### 4. Enjoy the power of Apollo
 
