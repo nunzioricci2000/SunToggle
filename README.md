@@ -2,7 +2,7 @@
 
 ## Why this library?
 
-You know those sleepless nights when for no reason you scroll through reels on Instagram until 3 a.m.? This bookstore was born on one of those nights.
+You know those sleepless nights when for no reason you scroll through reels on Instagram until 3 a.m.? This library was born on one of those nights.
 
 Just before I finally decide to go to sleep I find this silly reel: https://www.instagram.com/p/Criem1rLI9P/.
 
