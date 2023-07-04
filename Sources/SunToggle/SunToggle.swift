@@ -28,7 +28,6 @@ private struct ToggleButtonStyle: ButtonStyle {
                     DragGesture(minimumDistance: 0, coordinateSpace: .local)
                         .updating($offset) { value, state, transaction in
                             state = value.location
-                            print(state)
                             if state.x < 12.5 {
                                 isOn = false
                             }
