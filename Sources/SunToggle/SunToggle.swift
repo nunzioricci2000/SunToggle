@@ -2,28 +2,58 @@
 import SwiftUI
 
 public struct SunToggleStyle: ToggleStyle {
+    
     public func makeBody(configuration: Configuration) -> some View {
+        Button {
+            configuration.isOn.toggle()
+        } label: {
+            configuration.label
+        }.buttonStyle(ToggleButtonStyle(isOn: configuration.$isOn))
+    }
+    
+    public init() { }
+}
+
+private struct ToggleButtonStyle: ButtonStyle {
+    @Binding var isOn: Bool
+    @GestureState var offset: CGPoint = .zero
+    
+    func makeBody(configuration: Configuration) -> some View {
         HStack(spacing: 0) {
             configuration.label
             Spacer(minLength: 20)
             toggle(configuration)
                 .padding(-2)
+                .gesture(
+                    DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                        .updating($offset) { value, state, transaction in
+                            state = value.location
+                            print(state)
+                            if state.x < 12.5 {
+                                isOn = false
+                            }
+                            if state.x > 34.5 {
+                                isOn = true
+                            }
+                        }
+                )
         }
     }
     
     func toggle(_ configuration: Configuration) -> some View {
         HStack() {
-            if configuration.isOn {
+            if isOn {
                 Spacer()
             }
             ZStack {
-                Circle()
-                if configuration.isOn {
+                RoundedRectangle(cornerRadius: 13.5)
+                    .frame(width: configuration.isPressed || offset != .zero ? 34 : 27)
+                if isOn {
                     moonseas.blendMode(.sourceAtop)
                 }
             }.compositingGroup()
                 .foregroundStyle(
-                    (configuration.isOn ? Color.moon : .sun)
+                    (isOn ? Color.moon : .sun)
                         .gradient
                         .shadow(
                             .inner(
@@ -65,7 +95,7 @@ public struct SunToggleStyle: ToggleStyle {
                         .foregroundColor(.white.opacity(0.1))
                         .padding(-16)
                 }
-            if !configuration.isOn {
+            if !isOn {
                 Spacer()
             }
         }
@@ -73,12 +103,20 @@ public struct SunToggleStyle: ToggleStyle {
         .frame(width: 51, height: 31)
         .background(background(configuration))
         .onTapGesture {
-            configuration.isOn.toggle()
+            isOn.toggle()
         }
         .cornerRadius(30)
         .animation(
             .interpolatingSpring(stiffness: 300, damping: 20),
-            value: configuration.isOn
+            value: isOn
+        )
+        .animation(
+            .interpolatingSpring(stiffness: 300, damping: 20),
+            value: configuration.isPressed
+        )
+        .animation(
+            .interpolatingSpring(stiffness: 300, damping: 20),
+            value: offset
         )
     }
     
@@ -108,13 +146,28 @@ public struct SunToggleStyle: ToggleStyle {
     }
     
     func background(_ configuration: Configuration) -> some View {
-        (configuration.isOn ? Color.night : .day)
-            .animation(.linear(duration: 0.2), value: configuration.isOn)
+        (isOn ? Color.night : .day)
+            .animation(.linear(duration: 0.2), value: isOn)
             .overlay {
                 Image("Background", bundle: .module)
-                    .offset(x: 8.5, y: configuration.isOn ? 22.5 : -4.5)
+                    .offset(x: 8.5, y: isOn ? 22.5 : -4.5)
             }
     }
     
-    public init() { }
+}
+
+struct SunToggleStyle_Previews: PreviewProvider {
+    struct Preview: View {
+        @State var isOn = false
+        
+        var body: some View {
+            Toggle("Salve", isOn: $isOn)
+                .toggleStyle(.sun)
+                .fixedSize()
+        }
+    }
+    
+    static var previews: some View {
+        Preview()
+    }
 }
