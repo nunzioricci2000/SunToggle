@@ -10,7 +10,7 @@ import SunToggle
 
 struct ContentView: View {
     
-    @State var isOn: Bool = false
+    @State var isOn: Bool = true
     @State var isOff: Bool = true
     
     var body: some View {

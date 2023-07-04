@@ -3,6 +3,15 @@ import SwiftUI
 
 public struct SunToggleStyle: ToggleStyle {
     public func makeBody(configuration: Configuration) -> some View {
+        HStack(spacing: 0) {
+            configuration.label
+            Spacer(minLength: 20)
+            toggle(configuration)
+                .padding(-2)
+        }
+    }
+    
+    func toggle(_ configuration: Configuration) -> some View {
         HStack() {
             if configuration.isOn {
                 Spacer()
@@ -107,6 +116,5 @@ public struct SunToggleStyle: ToggleStyle {
             }
     }
     
-    public init() {
-    }
+    public init() { }
 }
